@@ -45,6 +45,16 @@ jobs:
           java-version: '17'
           cache: maven
 
+      - name: Cache Dependency-Check data
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.m2/repository/org/owasp/dependency-check-data
+            ~/.m2/repository/org/owasp/dependency-check
+          key: dependency-check-${{ runner.os }}-v1
+          restore-keys: |
+            dependency-check-${{ runner.os }}-
+
       - name: SAST - SpotBugs
         run: ./mvnw -B spotbugs:check
 
