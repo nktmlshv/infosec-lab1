@@ -1,13 +1,13 @@
-FROM maven:3.9.9-eclipse-temurin-17 AS build
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /workspace
 
 COPY pom.xml ./
-RUN mvn -q dependency:go-offline
+RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests dependency:go-offline
 
 COPY src ./src
-RUN mvn -q -DskipTests package
+RUN --mount=type=cache,target=/root/.m2 mvn -q -DskipTests package
 
-FROM eclipse-temurin:17-jre-jammy
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
 COPY --from=build /workspace/target/securitylab-0.0.1-SNAPSHOT.jar /app/app.jar

@@ -29,6 +29,8 @@ services:
       DB_PASSWORD: secret
       JWT_SECRET: "ChangeThisToAStrongRandomJwtSecretKeyValue1234567890"
       JWT_EXPIRATION_MS: 3600000
+      APP_ADMIN_USERNAME: admin
+      APP_ADMIN_PASSWORD: StrongAdminPassword123!
     ports:
       - "8080:8080"
     restart: unless-stopped
