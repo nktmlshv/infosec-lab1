@@ -45,8 +45,13 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Run build and security checks
-        run: ./mvnw -B verify
+      - name: SAST - SpotBugs
+        run: ./mvnw -B spotbugs:check
+
+      - name: SCA - Dependency-Check
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        run: ./mvnw -B org.owasp:dependency-check-maven:check
 
       - name: Upload SpotBugs report
         if: always()

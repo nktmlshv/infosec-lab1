@@ -123,7 +123,7 @@
                     <failBuildOnCVSS>0</failBuildOnCVSS>
                     <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
                     <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
-                    <autoUpdate>false</autoUpdate>
+                    <autoUpdate>true</autoUpdate>
                     <format>HTML</format>
                 </configuration>
             </plugin>
