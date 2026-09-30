@@ -24,6 +24,12 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException("JWT secret must be configured via JWT_SECRET.");
+        }
+        if (secret.length() < 32) {
+            throw new IllegalStateException("JWT secret must be at least 32 characters long.");
+        }
         this.signingKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -51,7 +57,7 @@ public class JwtUtil {
         try {
             Claims claims = parseClaims(token);
             return !claims.getExpiration().before(new Date());
-        } catch (Exception ex) {
+        } catch (IllegalArgumentException | io.jsonwebtoken.JwtException ex) {
             return false;
         }
     }

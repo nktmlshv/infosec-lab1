@@ -38,7 +38,7 @@ public class Post {
     public Post(String title, String content, User author) {
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.author = author == null ? null : copyUser(author);
     }
 
     public Long getId() {
@@ -66,11 +66,24 @@ public class Post {
     }
 
     public User getAuthor() {
-        return author;
+        return author == null ? null : copyUser(author);
     }
 
     public void setAuthor(User author) {
-        this.author = author;
+        this.author = author == null ? null : copyUser(author);
+    }
+
+    private User copyUser(User source) {
+        if (source == null) {
+            return null;
+        }
+
+        User copy = new User();
+        copy.setId(source.getId());
+        copy.setUsername(source.getUsername());
+        copy.setPasswordHash(source.getPasswordHash());
+        copy.setCreatedAt(source.getCreatedAt());
+        return copy;
     }
 
     public Instant getCreatedAt() {
