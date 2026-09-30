@@ -56,7 +56,7 @@ jobs:
             dependency-check-${{ runner.os }}-
 
       - name: SAST - SpotBugs
-        run: ./mvnw -B spotbugs:check
+        run: ./mvnw -B clean compile spotbugs:check
 
       - name: SCA - Dependency-Check
         env:
